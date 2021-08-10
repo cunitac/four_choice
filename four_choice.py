@@ -27,8 +27,9 @@ def read_tasks(filename: str) -> List[Task]:
                 print(f'重複した問題番号: {id} (第{row_n+1}行)')
                 exit(1)
             ids.add(id)
-            point = 1.0+random.random()*0.2 if len(row) == 6 else float(row[6])
+            point = 0.0 if len(row) == 6 else float(row[6])
             tasks.append(Task(id, row[1], row[2:6], point))
+    random.shuffle(tasks)
     return tasks
 
 
@@ -42,16 +43,9 @@ def query(tasks: List[Task]):
     ans = int(input('\n答えは? ')) - 1
     correct = ord[ans] == 0
     result = '正解' if correct else '不正解'
-    enough = False
-    if correct:
-        enough = task.point == 5.0
-        task.point += 1.0
-        task.point = min(5.0, task.point)
-    else:
-        task.point *= 0.5
-    print(f'{result} (問題番号: {task.id}, 正答: {ord.index(0)+1})')
-    if enough:
-        print(f'もう学習は十分なように思いますが……')
+    task.point *= 0.447214
+    task.point += correct / 1.80902
+    print(f'{result} (問題番号: {task.id}, 正答: {ord.index(0)+1}, 正答率?: {100*task.point:.1f}%)')
     print('')
     heapq.heappop(tasks)
     heapq.heappush(tasks, task)
@@ -71,5 +65,7 @@ if __name__ == '__main__':
         while True:
             query(tasks)
     except KeyboardInterrupt:
+        pass
+    finally:
         save_tasks(sys.argv[1], tasks)
         print('\n進捗をセーブしました！')
