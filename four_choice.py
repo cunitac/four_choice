@@ -13,7 +13,7 @@ class Task:
         self.choice = choice
 
     def __lt__(self, rhs):
-        return self.point < rhs.point
+        return (self.point, self.id) < (rhs.point, rhs.id)
 
 
 def read_tasks(filename: str) -> List[Task]:
@@ -43,9 +43,9 @@ def query(tasks: List[Task]):
     ans = int(input('\n答えは? ')) - 1
     correct = ord[ans] == 0
     result = '正解' if correct else '不正解'
-    task.point *= 0.447214
-    task.point += correct / 1.80902
-    print(f'{result} (問題番号: {task.id}, 正答: {ord.index(0)+1}, 正答率?: {100*task.point:.1f}%)')
+    task.point *= 0.9
+    task.point += int(correct) + 1
+    print(f'{result} (問題番号: {task.id}, 正答: {ord.index(0)+1}, スコア: {task.point})')
     print('')
     heapq.heappop(tasks)
     heapq.heappush(tasks, task)
