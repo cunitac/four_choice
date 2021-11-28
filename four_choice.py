@@ -47,7 +47,7 @@ def query(tasks: List[Task]):
         correct = ord[ans] == 0
     except ValueError:
         correct = False
-    result = '正解' if correct else '不正解'
+    result = '\033[32m\033[1mAC\033[0m' if correct else '\033[31m\033[1mWA\u001b[0m'
     task.point *= 0.584804
     task.point += (int(correct) + 1) * 50 / 2.408501
     print(f'{result} (問題番号: {task.id}, 正答: {ord.index(0)+1}, スコア: {task.point:.01f})')
