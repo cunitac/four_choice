@@ -3,7 +3,7 @@
 ## 使い方
 
 ```
-python3 four_choice tasks.tsv
+python3 four_choice.py tasks.tsv
 ```
 
 `tasks.tsv` は（名前・拡張子はなんでもよいですが）タブ区切りのファイルであって、各行は
@@ -30,4 +30,4 @@ python3 four_choice tasks.tsv
 
 飽きたら`Ctrl+C`で終了してください。`tasks.tsv`が勝手に編集されますが、気にしなくてよいです。勝手に進捗が保存されているので、次に使うときも同じファイルを使ってください。
 
-オプション`--reset`をつけることで、進捗をリセットすることができます。実装が雑なので、必ず `python3 four_choice tasks.tsv --reset` の順で入力してください。高級なアプリケーションでないのでバックアップなど存在しないことに気をつけてください。
+オプション`--reset`をつけることで、進捗をリセットすることができます。実装が雑なので、必ず `python3 four_choice.py tasks.tsv --reset` の順で入力してください。高級なアプリケーションでないのでバックアップなど存在しないことに気をつけてください。
