@@ -66,11 +66,19 @@ def save_tasks(filename: str, tasks: List[Task]):
 
 
 if __name__ == '__main__':
+    reset, shuffle = False, False
     if len(sys.argv) == 3:
-        assert sys.argv[2] == '--reset'
+        if sys.argv[2] == '--reset':
+            reset = True
+        elif sys.argv[2] == '--shuffle':
+            shuffle = True
+        else:
+            raise 'Unknown Option'
     else:
         assert len(sys.argv) == 2
-    tasks = read_tasks(sys.argv[1], len(sys.argv) == 3)
+    tasks = read_tasks(sys.argv[1], reset)
+    if shuffle:
+        random.shuffle(tasks)
     heapq.heapify(tasks)
     try:
         while True:
