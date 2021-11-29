@@ -31,7 +31,6 @@ def read_tasks(filename: str, reset: bool) -> List[Task]:
             tasks.append(Task(id, row[1], row[2:6], point))
     if reset:
         print('進捗をリセットしました！')
-    random.shuffle(tasks)
     return tasks
 
 
@@ -50,7 +49,8 @@ def query(tasks: List[Task]):
     result = '\033[32m\033[1mAC\033[0m' if correct else '\033[31m\033[1mWA\u001b[0m'
     task.point *= 0.584804
     task.point += (int(correct) + 1) * 50 / 2.408501
-    print(f'{result} (問題番号: {task.id}, 正答: {ord.index(0)+1}, スコア: {task.point:.01f})')
+    print(
+        f'{result} (問題番号: {task.id}, 正答: {ord.index(0)+1}.{task.choice[0]}, スコア: {task.point:.01f})')
     print('')
     heapq.heappop(tasks)
     heapq.heappush(tasks, task)
@@ -58,6 +58,7 @@ def query(tasks: List[Task]):
 
 def save_tasks(filename: str, tasks: List[Task]):
     with open(filename, mode='w') as tasks_file:
+        tasks.sort(key=lambda task: task.id)
         for task in tasks:
             print(task.id, task.statement,
                   *task.choice, task.point, sep='\t', file=tasks_file)
