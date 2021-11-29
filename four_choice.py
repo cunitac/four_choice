@@ -13,7 +13,7 @@ class Task:
         self.choice = choice
 
     def __lt__(self, rhs):
-        return (self.point, self.id) < (rhs.point, rhs.id)
+        return self.point < rhs.point
 
 
 def read_tasks(filename: str, reset: bool) -> List[Task]:
