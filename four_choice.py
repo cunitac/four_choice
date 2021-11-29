@@ -78,6 +78,7 @@ if __name__ == '__main__':
         assert len(sys.argv) == 2
     tasks = read_tasks(sys.argv[1], reset)
     if shuffle:
+        print('シャッフルしました！')
         random.shuffle(tasks)
     heapq.heapify(tasks)
     try:
